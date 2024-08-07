@@ -1,5 +1,5 @@
 'use client'
-
+import { useRouter } from 'next/navigation'
 import { FcGoogle } from 'react-icons/fc'
 import { FaGithub } from 'react-icons/fa'
 
@@ -8,10 +8,15 @@ import { signIn } from 'next-auth/react'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 
 export const Social = () => {
+  const router = useRouter()
   const onClick = (provider : "google" | "github") => {
-    signIn(provider, {
-      callbackUrl: DEFAULT_LOGIN_REDIRECT,
-    })
+    try {
+      signIn(provider, {
+        callbackUrl: DEFAULT_LOGIN_REDIRECT,
+      })
+    } catch (error) {
+      router.push("/")
+    }
   }
   return (
     <div className="flex items-center w-full gap-x-2">

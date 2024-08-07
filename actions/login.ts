@@ -29,6 +29,10 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
           return {
             error: "Invalid credentails!"
           }
+        case "AccessDenied":
+          return {
+            error: "Email is already used with other provider!"
+          }
         default:
           return {
             error: "Something went wrong!"

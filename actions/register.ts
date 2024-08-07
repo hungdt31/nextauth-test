@@ -2,7 +2,6 @@
 import * as z from 'zod'
 import bcrypt from 'bcrypt'
 import { RegisterSchema } from '@/schemas'
-import { revalidatePath, revalidateTag } from 'next/cache'
 import { db } from '@/lib/db'
 import { getUserByEmail } from '@/data/user'
 
@@ -29,11 +28,12 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       name,
       email,
       password: hashedPassword,
+      provider: "credentials"
     },
   })
 
   // TODO: send verification token email
-
+  
   return {
     success: 'User created!',
   }
