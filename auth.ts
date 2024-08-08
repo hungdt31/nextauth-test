@@ -6,6 +6,7 @@ import { db } from "@/lib/db"
 import nookies from 'nookies'
 import { v4 } from "uuid"
 import { getUserById, getUserByEmail } from "@/data/user"
+import instance from "@/axios"
 // import SequelizeAdapter from "@auth/sequelize-adapter"
 // import { sequelize } from "./lib/sequelize"
 
@@ -16,89 +17,78 @@ export const {
   signOut
 } = NextAuth({
   events: {
-    async linkAccount({ user }) {
-      await db.user.update({
-        where: {
-          id: user.id
-        },
-        data: {
-          emailVerified: new Date()
-        }
-      });
-    },
-    async signIn({user}) {
-      console.log("")
-    },
+    // async linkAccount({ user }) {
+    //   await db.user.update({
+    //     where: {
+    //       id: user.id
+    //     },
+    //     data: {
+    //       emailVerified: new Date()
+    //     }
+    //   });
+    // },
     async session({session}) {
-      console.log("ĐĂNG NHẬP THÀNH CÔNG", session)
+      console.log("LOGIN SUCCESSFULLY")
     }
   },
   callbacks: {
     async session({ token, session, user }){
-      console.log("SESSION", user)
-      console.log(token)
       // Thêm thông tin vào phiên làm việc
-      if (token.sub && session.user) {
-        session.user.id = token.sub
-      }
-      if (token.role && session.user) {
-        session.user.role = token.role as UserRole
-      }
-      session.provider = token.provider as string
-      session.accessToken = token.accessToken as string
-      session.isValid = false
-      console.log(session)
-      
-  //     const s : any = "access_token"
-  // // Set
-  // nookies.set(s, 'fromGetInitialProps', 'value', {
-  //   maxAge: 30 * 24 * 60 * 60,
-  //   path: '/',
-  // })
-  // const cookies : any = nookies.get(s)
-  // // Destroy
-  // // nookies.destroy(ctx, 'cookieName')
-  // session.accessToken = cookies
-  return session
+      session.user.role = token.role as UserRole
+      session.user.provider = token.provider as string
+      return session
     },
     async jwt({ token, account }) {
-      if (account?.type == 'credentials') {
-        console.log("CREDENTIALS")
-      } 
-      else {
-        console.log("OAUTH")
+      const existingUserInformation : any = await instance({
+        method: 'post',
+        url: '/api/user',
+        data: {
+          email: token.email
+        }
+      });
+      if (existingUserInformation) {
+        token.provider = existingUserInformation.data.provider
+        token.role = existingUserInformation.data.role
       }
-      if (account) {
-        token.provider = account.provider
-      }
-      console.log("ACCOUNT", account)
-      console.log("JWT", token)
-      if (!token.sub) return token;
-      const existingUser = await getUserById(token.sub);
-      if (existingUser) token.role = existingUser.role
-      token.accessToken = account?.access_token
       return token;
     },
     async signIn({ user, account, profile, email, credentials }) { 
-      console.log("SIGN IN",{ user, account, profile, email, credentials })
-      const email_user = user.email as string
-      const existingAccount = await getUserByEmail(email_user)
-      console.log("CURRENT USER: ", existingAccount)
-      if (existingAccount) {
-      //   throw new Error("Lỗi nè!")
-        // return "/auth/login"
-        // return false
+      const user_email = user.email as string
+      const existingUserInformation : any = await instance({
+        method: 'post',
+        url: '/api/user',
+        data: {
+          email: user_email
+        }
+      });
+    
+      if (!existingUserInformation.data){
+        const provider = account?.provider as string
+        const providerAccountId = account?.providerAccountId as string
+        const name = profile?.name as string
+        const type = account?.type
+        let image = profile?.picture
+        if (!image) image = user.image
+        await instance({
+          method: 'post',
+          url: '/api/new-user',
+          data: {
+            email: user_email,
+            provider,
+            providerAccountId,
+            name,
+            type,
+            image
+          }
+        });
       }
-      nookies.set(null, 'access_token', 'frggrfesfegefef', {
-        maxAge: 30 * 24 * 60 * 60,
-        path: '/',
-      })
+      else if (existingUserInformation.data.provider !== account?.provider) return "/auth/login?error=AccountNotLinked"
       return true
     }
   },
   // pages: {
   //   signIn: '/auth/login', // Trang đăng nhập tùy chỉnh
-  //   error: '/auth/login'  // Trang lỗi tùy chỉnh
+  //   error: '/auth/error'  // Trang lỗi tùy chỉnh
   // },
   // adapter: PrismaAdapter(db),
   session: {

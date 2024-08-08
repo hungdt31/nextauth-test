@@ -4,10 +4,12 @@ import { LoginSchema } from '@/schemas'
 import { signIn } from '@/auth'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { AuthError } from 'next-auth'
-
+import { getUserByEmail } from '@/data/user'
+import { generateEmailConfirmationToken } from '@/actions/email-confirmation-token'
+import { SendEmailConfirmation } from '@/lib/send-mail'
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values)
-  console.log(validatedFields)
+  // console.log(validatedFields)
   if (!validatedFields.success) {
     return {
       error: 'Invalid fields!',
@@ -15,33 +17,49 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   const { email, password } = validatedFields.data
-
+  const existingUser = await getUserByEmail(email)
+  if (existingUser) {
+    if (existingUser.provider === 'credentails' && !existingUser.emailVerified) {
+      const EmailConfirmationToken = await generateEmailConfirmationToken(email)
+      await SendEmailConfirmation({
+        token: EmailConfirmationToken.token,
+        email: EmailConfirmationToken.email,
+      })
+      return {
+        success: 'Email sent, please check to verify',
+      }
+    } else if (existingUser.provider !== 'credentails') {
+      return {
+        error: 'Email is already used with other provider',
+      }
+    }
+  }
   try {
-    await signIn("credentials", {
+    await signIn('credentials', {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT 
+      redirectTo: DEFAULT_LOGIN_REDIRECT,
     })
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
-        case "CredentialsSignin": 
+        case 'CredentialsSignin':
           return {
-            error: "Invalid credentails!"
+            error: 'Invalid credentails',
           }
-        case "AccessDenied":
+        case 'AccessDenied':
           return {
-            error: "Email is already used with other provider!"
+            error: 'Email is already used with other provider',
           }
         default:
           return {
-            error: "Something went wrong!"
+            error: 'Something went wrong',
           }
       }
     }
-    throw error;
+    throw error
   }
   return {
-    success: 'Email sent!',
+    success: 'Email sent',
   }
 }

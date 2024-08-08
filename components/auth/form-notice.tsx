@@ -3,13 +3,15 @@ import {
   ExclamationTriangleIcon,
   CheckCircledIcon,
 } from '@radix-ui/react-icons'
+import React from 'react'
 
 interface FormNoticeProps {
   message?: any
   type?: 'success' | 'error'
+  children?: React.ReactNode
 }
 
-export const FormNotice = ({ message, type }: FormNoticeProps) => {
+export const FormNotice = ({ message, type, children }: FormNoticeProps) => {
   if (!message) return null
 
   return (
@@ -26,7 +28,14 @@ export const FormNotice = ({ message, type }: FormNoticeProps) => {
       ) : (
         <ExclamationTriangleIcon className="h-4 w-4" />
       )}
-      <p>{message}</p>
+      {children ? (
+        <div>
+          <p>{message}</p>
+          {children}
+        </div>
+      ) : (
+        <p>{message}</p>
+      )}
     </div>
   )
 }
