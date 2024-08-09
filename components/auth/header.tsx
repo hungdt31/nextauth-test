@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils'
-import { Poppins } from 'next/font/google'
+import { Audiowide } from 'next/font/google'
 
-const font = Poppins({
+const font = Audiowide({
   subsets: ['latin'],
-  weight: ['600'],
+  weight: ['400'],
 })
 interface HeaderProps {
   label: string

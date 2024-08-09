@@ -1,0 +1,18 @@
+{
+  "/": {
+    "outline":"Một bộ sưu tập hình ảnh sinh động"
+  },
+  "/auth/login": {
+    "headerLabel":"Chào mừng trở lại",
+    "backButtonLabel":"Chưa có tài khoản?"
+  },
+  "/auth/register": {
+    "headerLabel":"Tạo tài khoản mới",
+    "backButtonLabel":"Đã có tài khoản?"
+  },
+  "LocaleSwitcher": {
+    "vi": "Tiếng Việt",
+    "en": "Tiếng Anh",
+    "label": "Ngôn ngữ"
+  }
+}

@@ -33,7 +33,7 @@ export default function UserSession() {
       <div
         className={cn(
           'flex flex-col space-y-4 px-7 py-5 rounded-lg shadow-lg',
-          session && 'bg-slate-300/90'
+          session && 'bg-outline'
         )}
       >
         {session && (

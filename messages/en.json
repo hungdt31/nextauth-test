@@ -1,0 +1,18 @@
+{
+  "/": {
+    "outline":"A beautiful picture collection"
+  },
+  "/auth/login": {
+    "headerLabel":"Welcome back",
+    "backButtonLabel":"Don't have an account?"
+  },
+  "/auth/register": {
+    "headerLabel":"Create an account",
+    "backButtonLabel":"Already have an account?"
+  },
+  "LocaleSwitcher": {
+    "vi": "Vietnamese",
+    "en": "English",
+    "label": "Language"
+  }
+}

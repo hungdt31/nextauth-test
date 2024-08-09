@@ -18,12 +18,14 @@ import { FormNotice } from '@/components/auth/form-notice'
 import { login } from '@/actions/login'
 import { useEffect, useState, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 export default function LoginForm() {
   const ErrorParam = useSearchParams().get('error') as string
   const [error, setError] = useState<String | undefined>('')
   const [success, setSuccess] = useState<String | undefined>('')
   const [isPending, startTransition] = useTransition()
+  const t = useTranslations("/auth/login")
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -47,8 +49,8 @@ export default function LoginForm() {
   }
   return (
     <CardWrapper
-      headerLabel="Welcome back"
-      backButtonLabel="Don't have an account?"
+      headerLabel={t("headerLabel")}
+      backButtonLabel={t("backButtonLabel")}
       backButtonHref="/auth/register"
       showSocial
     >

@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ModeToggle } from '@/components/theme/mode-toggle'
 import { ThemeProvider } from '@/components/theme/theme-provider'
+import {NextIntlClientProvider} from 'next-intl';
+import {getLocale, getMessages} from 'next-intl/server';
+import NavBar from '@/components/common/nav-bar'
+import { auth } from '@/auth';
+import { SessionProvider } from 'next-auth/react';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -15,8 +19,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+  const session = await auth()
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <head />
       <body>
         <ThemeProvider
@@ -25,12 +32,12 @@ export default async function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
-        <div className='absolute top-5 left-5'>
-          <ModeToggle/>
-        </div>
+          <NextIntlClientProvider messages={messages}>
+          <SessionProvider session={session}>
+            {children}
+          </SessionProvider>
+          </NextIntlClientProvider>
         </ThemeProvider>
-        
       </body>
     </html>
   )

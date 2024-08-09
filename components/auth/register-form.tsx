@@ -17,11 +17,13 @@ import { Button } from '@/components/ui/button'
 import { FormNotice } from '@/components/auth/form-notice'
 import { register } from '@/actions/register'
 import { useState, useTransition } from 'react'
+import { useTranslations } from 'next-intl'
 
 export default function LoginForm() {
   const [error, setError] = useState<String | undefined>('')
   const [success, setSuccess] = useState<String | undefined>('')
   const [isPending, startTransition] = useTransition()
+  const t = useTranslations("/auth/register")
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -43,8 +45,8 @@ export default function LoginForm() {
   }
   return (
     <CardWrapper
-      headerLabel="Create an account"
-      backButtonLabel="Already have an account?"
+      headerLabel={t("headerLabel")}
+      backButtonLabel={t("backButtonLabel")}
       backButtonHref="/auth/login"
       showSocial
     >
