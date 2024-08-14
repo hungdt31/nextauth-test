@@ -1,6 +1,5 @@
 import NextAuth, { CredentialsSignin } from "next-auth"
-import { UserRole } from "@prisma/client"
-import { PrismaAdapter } from "@auth/prisma-adapter"
+// import { PrismaAdapter } from "@auth/prisma-adapter"
 import authConfig from "@/auth.config"
 import { v4 } from "uuid"
 import instance from "@/axios"
@@ -31,7 +30,7 @@ export const {
   callbacks: {
     async session({ token, session, user }){
       // Thêm thông tin vào phiên làm việc
-      session.user.role = token.role as UserRole
+      session.user.role = token.role as any
       session.user.provider = token.provider as string
       return session
     },
