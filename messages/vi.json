@@ -1,14 +1,28 @@
 {
   "/": {
-    "outline":"Một bộ sưu tập hình ảnh sinh động"
+    "outline":"Một bộ sưu tập hình ảnh sinh động",
+    "collection": "Bộ sưu tập",
+    "popular": "Phổ biến",
+    "explore": "Tìm hiểu thêm",
+    "community": "Cộng đồng",
+    "des_community": "Chia sẻ, gắn kết qua các nền tảng"
   },
   "/auth/login": {
     "headerLabel":"Chào mừng trở lại",
-    "backButtonLabel":"Chưa có tài khoản?"
+    "backButtonLabel":"Chưa có tài khoản?",
+    "forgot_password": "Quên mật khẩu?"
+  },
+  "/auth/forgot-password": {
+    "headerLabel":"Quên mật khẩu",
+    "backButtonLabel":"Đăng nhập"
   },
   "/auth/register": {
     "headerLabel":"Tạo tài khoản mới",
     "backButtonLabel":"Đã có tài khoản?"
+  },
+  "/auth/new-password": {
+    "headerLabel":"Thay đổi mật khẩu",
+    "backButtonLabel":"Quay lại đăng nhập"
   },
   "LocaleSwitcher": {
     "vi": "Tiếng Việt",

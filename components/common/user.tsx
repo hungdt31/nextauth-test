@@ -2,8 +2,10 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 export const UserInfo = () => {
   const { data : session } = useSession();
+  const router = useRouter();
   const [name, setName] = useState<string | null | undefined>('')
   const [image, setImage] = useState<string | undefined>('')
   useEffect(() => {

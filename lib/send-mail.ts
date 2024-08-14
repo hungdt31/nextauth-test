@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-interface EmailConfirmationProps {
+interface EmailProps {
   token: string,
   email: string
 }
@@ -57,11 +57,22 @@ const emailSender = new SendEmail();
 export const SendEmailConfirmation = async ({
   token,
   email
-} : EmailConfirmationProps) => {
+} : EmailProps) => {
   await emailSender.sendEmail({
     email,
     html: `Click <a href="${process.env.DOMAIN}/auth/email-confirmation?token=${token}">here</a> to verify your email. Expire in 10 minutes.`,
     subject: "Email verification",
+  });
+}
+
+export const SendEmailResetPassword = async ({
+  token,
+  email
+} : EmailProps) => {
+  await emailSender.sendEmail({
+    email,
+    html: `Click <a href="${process.env.DOMAIN}/auth/new-password?token=${token}">here</a> to change password. Expire in 10 minutes.`,
+    subject: "Change password",
   });
 }
 

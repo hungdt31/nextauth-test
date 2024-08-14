@@ -3,7 +3,7 @@ import { CardWrapper } from '@/components/auth/card-wrapper'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Input } from '@/components/ui/input'
-import { LoginSchema } from '@/schemas'
+import { ForgotPasswordSchema } from '@/schemas'
 import {
   Form,
   FormControl,
@@ -15,36 +15,28 @@ import {
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { FormNotice } from '@/components/auth/form-notice'
-import { login } from '@/actions/login'
-import { useEffect, useState, useTransition } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
-import Link from 'next/link'
+import { forgotPassword } from '@/actions/forgot-password'
 
-export default function LoginForm() {
-  const ErrorParam = useSearchParams().get('error') as string
+export default function ForgotPassword() {
   const [error, setError] = useState<String | undefined>('')
   const [success, setSuccess] = useState<String | undefined>('')
   const [isPending, startTransition] = useTransition()
-  const t = useTranslations('/auth/login')
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const t = useTranslations('/auth/forgot-password')
+  const form = useForm<z.infer<typeof ForgotPasswordSchema>>({
+    resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: ''
     },
   })
-  useEffect(() => {
-    if (ErrorParam) setError('Email is already used in other provider')
-    form.reset()
-  }, [ErrorParam])
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: z.infer<typeof ForgotPasswordSchema>) => {
     setError('')
     setSuccess('')
     startTransition(() => {
-      login(values).then((data) => {
+      forgotPassword(values).then((data) => {
+        setSuccess(data.success);
         setError(data.error)
-        setSuccess(data.success)
       })
     })
   }
@@ -52,8 +44,8 @@ export default function LoginForm() {
     <CardWrapper
       headerLabel={t('headerLabel')}
       backButtonLabel={t('backButtonLabel')}
-      backButtonHref="/auth/register"
-      showSocial
+      backButtonHref="/auth/login"
+      showSocial={false}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -76,37 +68,11 @@ export default function LoginForm() {
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <div>
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        type="password"
-                        placeholder="********"
-                      />
-                      <Link
-                        className='font-light text-[12px]'
-                        href={"/auth/forgot-password"}
-                      >
-                        {t('forgot_password')}
-                      </Link>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
           </div>
           <FormNotice message={success} type="success" />
           <FormNotice message={error} type="error" />
           <Button disabled={isPending} type="submit" className="w-full">
-            Login
+            Submit
           </Button>
         </form>
       </Form>

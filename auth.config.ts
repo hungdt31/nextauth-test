@@ -5,13 +5,17 @@ import type { NextAuthConfig } from "next-auth"
 import { LoginSchema } from "@/schemas"
 import { getUserByEmail } from "./data/user"
 import bcrypt from "bcryptjs"
-
+import z from "zod"
 export default { 
   providers: [
     GitHub,
     Google,
     Credentials({
-      async authorize(credentials) {
+      credentials: {
+        email: { label: "Email", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials, req) {
         // console.log("AUTHORIZE :" , credentials)
         const validatedFields = LoginSchema.safeParse(credentials);
         if (validatedFields.success) {

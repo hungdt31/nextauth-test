@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <div>
+    <div className="text-center p-5">
       FOOTER
     </div>
   )

@@ -1,0 +1,64 @@
+/* 
+ * VARIABLES
+ */
+
+// colors
+$bgColor: #FFFFFF;
+$borderColor: #1d7c88;
+
+// sizes
+$avatarSize: 3.5rem;
+$borderWidth: 2px;
+$paddingSize: 20px;
+
+// some calculations
+$translateValue: -$paddingSize - $borderWidth;
+
+
+/* 
+  * BASICS
+  */
+
+
+
+/*
+  * MAIN CONTENT
+  */
+
+.avatar {
+  border: $borderWidth solid $bgColor;
+  box-sizing: border-box;
+  height: $avatarSize;
+  border-radius: 50%;
+  position: relative;
+  width: $avatarSize;
+
+  &_image {
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  &::before,
+  &::after {
+    border: $borderWidth solid transparent;
+    border-radius: 50%;
+    border-top: $borderWidth solid $borderColor;
+    content: "";
+    display: block;
+    height: calc(100% + 10px);
+    left: 50%;
+    width: calc(100% + 10px);
+    position: absolute;
+  }
+
+  &::before {
+    top: -2 * $borderWidth;
+    transform: translateX(-50%);
+
+  }
+
+  &::after {
+    bottom: -2 * $borderWidth;
+    transform: translateX(-50%) rotate(180deg);
+  }
+}

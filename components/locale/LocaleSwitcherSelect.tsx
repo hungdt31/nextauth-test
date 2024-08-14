@@ -64,8 +64,7 @@ export default function LocaleSwitcherSelect({
                   height={20}
                   alt="England Flag"
                 />
-              )}{' '}
-              {'|'} {flag}
+              )}{"/"}{flag}
             </div>
           </Select.Icon>
         </Select.Trigger>

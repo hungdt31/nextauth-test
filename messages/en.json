@@ -1,14 +1,28 @@
 {
   "/": {
-    "outline":"A beautiful picture collection"
+    "outline":"A beautiful picture collection",
+    "collection": "Collections",
+    "popular": "Popular",
+    "explore": "Explore more",
+    "community": "Community",
+    "des_community": "Share, take relationship through the social media"
   },
   "/auth/login": {
     "headerLabel":"Welcome back",
-    "backButtonLabel":"Don't have an account?"
+    "backButtonLabel":"Don't have an account?",
+    "forgot_password": "Forgot password?"
   },
   "/auth/register": {
     "headerLabel":"Create an account",
     "backButtonLabel":"Already have an account?"
+  },
+  "/auth/forgot-password": {
+    "headerLabel":"Forgot password",
+    "backButtonLabel":"Back to login"
+  },
+  "/auth/new-password": {
+    "headerLabel":"Update password",
+    "backButtonLabel":"Back to login"
   },
   "LocaleSwitcher": {
     "vi": "Vietnamese",

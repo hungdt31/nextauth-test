@@ -19,7 +19,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   const { email, password } = validatedFields.data
   const existingUser = await getUserByEmail(email)
   if (existingUser) {
-    if (existingUser.provider === 'credentails' && !existingUser.emailVerified) {
+    if (existingUser.provider === 'credentials' && !existingUser.emailVerified) {
       const EmailConfirmationToken = await generateEmailConfirmationToken(email)
       await SendEmailConfirmation({
         token: EmailConfirmationToken.token,
@@ -28,7 +28,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       return {
         success: 'Email sent, please check to verify',
       }
-    } else if (existingUser.provider !== 'credentails') {
+    } else if (existingUser.provider !== 'credentials') {
       return {
         error: 'Email is already used with other provider',
       }

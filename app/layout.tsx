@@ -7,6 +7,7 @@ import {getLocale, getMessages} from 'next-intl/server';
 import NavBar from '@/components/common/nav-bar'
 import { auth } from '@/auth';
 import { SessionProvider } from 'next-auth/react';
+import QueryClientProviderComponent from '@/lib/query-provider';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -33,9 +34,11 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <NextIntlClientProvider messages={messages}>
-          <SessionProvider session={session}>
-            {children}
-          </SessionProvider>
+            <QueryClientProviderComponent>
+              <SessionProvider session={session}>
+                {children}
+              </SessionProvider>
+            </QueryClientProviderComponent>
           </NextIntlClientProvider>
         </ThemeProvider>
       </body>

@@ -5,6 +5,14 @@ export const LoginSchema = z.object({
   password: z.string().min(4),
 })
 
+export const ForgotPasswordSchema = z.object({
+  email: z.string().email()
+})
+
+export const NewPasswordSchema = z.object({
+  password: z.string().min(4),
+})
+
 export const RegisterSchema = z.object({
   email: z.string().email({
     message: 'Email is required',

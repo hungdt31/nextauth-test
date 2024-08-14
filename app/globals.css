@@ -34,6 +34,7 @@
     --outline-color: 195 100% 50%;
     --rise-color: 195 100% 50%;
     --cloud-color: 186 77% 77%;
+    --collection-color: 184 80% 93%;
   }
 
   .dark {
@@ -64,6 +65,7 @@
     --outline-color: 179 100% 21%;
     --rise-color: 53 80% 62%;
     --cloud-color: 189 84% 28%;
+    --collection-color: 222.2 84% 8%;
   }
 }
 
@@ -312,6 +314,7 @@
     height: 120px;
     background: #ddd4d0;
     border-radius: 50%;
+    animation: cloud 5s infinite 2s;
     background: radial-gradient(100% 80% at bottom right, hsl(var(--cloud-color)) 110%, #fff 130%);
     /* box-shadow: 100px -30px 0 30px #fff; */
   }
@@ -323,6 +326,7 @@
     left: 135px;
     width: 150px;
     height: 190px;
+    animation: cloud 5s infinite 2s;
     background: #ddd4d0;
     border-top-left-radius: 45%;
     border-top-right-radius: 60%;
@@ -356,13 +360,14 @@
   }
 
   .base2half {
+    animation: cloud 5s infinite 2s;
     position: absolute;
-    top: -13px;
-    right: 6px;
-    width: 400px;
-    height: 30px;
+    top: -25px;
+    right: 0px;
+    width: 380px;
+    height: 40px;
     background: #ddd4d0;
-    border-radius: 50% 50% 50% 50%;
+    border-radius: 50% 50% 20% 0%;
     background: linear-gradient(#fff, hsl(var(--cloud-color)) 50%);
   }
 
@@ -390,7 +395,7 @@
     height: 255px;
     background: #ddd4d0;
     border-radius: 50% 50% 0% 0%;
-
+    animation: cloud 5s infinite 1s;
     background: radial-gradient(70% 100% at bottom, hsl(var(--cloud-color)) 90%, #fff 100%);
 
   }
@@ -419,6 +424,7 @@
     background: #ddd4d0;
     border-radius: 50%;
     background: radial-gradient(95% 85% at bottom right, hsl(var(--cloud-color)) 120%, #fff 130%);
+    animation: cloud 5s infinite 2s;
     /* box-shadow: 100px -30px 0 30px #fff;  */
   }
 
@@ -434,5 +440,38 @@
     border-radius: 50%;
     background: radial-gradient(110% 90% at bottom right, hsl(var(--cloud-color)) 100%, #fff 130%);
     /* box-shadow: 100px -30px 0 30px #fff; */
+    animation: cloud 5s infinite;
   }
+
+  @keyframes cloud {
+    0% {
+      transform: translateX(0px);
+    }
+
+    50% {
+      transform: translateX(20px);
+    }
+
+    100% {
+      transform: translateX(0px);
+    }
+  }
+
+  .strip {
+    position: absolute;
+    @apply -top-3;
+    @apply -left-1;
+    width: 0;
+    height: 0;
+    border-bottom: 8px solid hsl(var(--outline-color));
+    border-left: 20px solid transparent;
+  }
+}
+
+.des {
+  display: inline-block;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }

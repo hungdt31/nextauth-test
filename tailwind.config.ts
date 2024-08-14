@@ -18,7 +18,14 @@ const config = {
       },
     },
     extend: {
+      boxShadow: {
+        "inner-image": "inset 0 0 100px rgb(40,50,50)"
+      },
+      backgroundImage: {
+        'community': "url('/music.webp')"
+      },
       colors: {
+        collection: 'hsl(var(--collection-color))',
         rise: 'hsl(var(--rise-color))',
         outline: 'hsl(var(--outline-color))',
         border: 'hsl(var(--border))',
@@ -96,6 +103,14 @@ const config = {
             "letter-spacing": "normal",
             "opacity": "1"
           }
+        },
+        "scale-up-hor-center": {
+          from: { transfrom: "scaleX(0.4)" },
+          to: { transfrom: "scaleX(1)" }
+        },
+        "appear-from-right": {
+          from : { transfrom: "translateX(5px)" },
+          to: { transfrom: "translateX(0)" }
         }
       },
       animation: {
@@ -104,7 +119,9 @@ const config = {
         'toggle-from-right': 'toggle-from-right 0.3s ease-out',
         'toggle-from-left': 'toggle-from-left 0.3s ease-out',
         "tracking-in-contract": "tracking-in-contract 3s ease-out",
-        "rise-animation": "rise 2s ease-in-out 0.5s forwards"
+        "rise-animation": "rise 2s ease-in-out 0.5s forwards",
+        "appear-from-right": "appear-from-right 2s ease-out",
+        "scale-up-hor-center": "scale-up-hor-center 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both",
       },
     },
   },
