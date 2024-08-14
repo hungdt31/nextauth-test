@@ -24,7 +24,6 @@
     "@tanstack/react-query": "^5.51.23",
     "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
-    "@types/crypto-js": "^4.2.2",
     "@types/nodemailer": "^6.4.15",
     "@types/uuid": "^10.0.0",
     "axios": "^1.7.3",
