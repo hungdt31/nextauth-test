@@ -28,7 +28,7 @@ export default function Collection() {
                 <div className="grid grid-cols-3 gap-1 grid-rows-2 h-[60%] hover:opacity-70">
                   {el.preview_photos.map((e: any, index: number) => (
                     <div
-                      key={e}
+                      key={index}
                       className={cn(
                         index == 3 ? 'hidden' : '',
                         index == 0 ? 'row-span-2 col-span-2' : ''
@@ -58,8 +58,8 @@ export default function Collection() {
               </Link>
               <div className="flex flex-wrap gap-3 items-center">
               <Tag />
-                {el?.tags?.map((tag: any) => (
-                  <Button variant={'secondary'}>{tag.title}</Button>
+                {el?.tags?.map((tag: any, index: number) => (
+                  <Button variant={'secondary'} key={index}>{tag.title}</Button>
                 ))}
               </div>
             </div>
