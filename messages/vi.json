@@ -5,7 +5,10 @@
     "popular": "Phổ biến",
     "explore": "Tìm hiểu thêm",
     "community": "Cộng đồng",
-    "des_community": "Chia sẻ, gắn kết qua các nền tảng"
+    "des_community": "Chia sẻ, gắn kết qua các nền tảng",
+    "dev": "Nhà phát triển",
+    "des_dev_1": "Đối với các nhà phát triển, Unsplash không chỉ là nguồn hình ảnh tuyệt đẹp",
+    "des_dev_2": "mà còn là một công cụ mạnh mẽ có thể được tích hợp liền mạch vào các ứng dụng và trang web."
   },
   "/auth/login": {
     "headerLabel":"Chào mừng trở lại",

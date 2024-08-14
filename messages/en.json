@@ -5,7 +5,10 @@
     "popular": "Popular",
     "explore": "Explore more",
     "community": "Community",
-    "des_community": "Share, take relationship through the social media"
+    "des_community": "Share, take relationship through the social media",
+    "dev": "Developers",
+    "des_dev_1": "For developers, Unsplash is more than just a source of stunning images",
+    "des_dev_2": "—it's a powerful tool that can be seamlessly integrated into applications and websites."
   },
   "/auth/login": {
     "headerLabel":"Welcome back",

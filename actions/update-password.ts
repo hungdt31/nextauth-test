@@ -2,6 +2,8 @@
 import { getResetPasswordTokenByToken } from '@/data/forgot-password-token'
 import { NewPasswordSchema } from '@/schemas'
 import { db } from '@/lib/db'
+import bcrypt from "bcryptjs"
+
 export const UpdatePassword = async ({
   new_password,
   token,
@@ -19,12 +21,13 @@ export const UpdatePassword = async ({
   }
   const existingResetPasswordToken = await getResetPasswordTokenByToken(token)
   if (existingResetPasswordToken) {
+    const hashedNewPassword = await bcrypt.hash(new_password, 10)
     await db.user.update({
       where: {
         email: existingResetPasswordToken.email,
       },
       data: {
-        password: new_password,
+        password: hashedNewPassword,
       },
     })
     await db.passwordResetToken.delete({

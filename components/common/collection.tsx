@@ -18,7 +18,7 @@ export default function Collection() {
     </div>
   )
   return (
-    <div className="bg-collection py-5 px-3 space-y-6 mt-5">
+    <div className="bg-collection py-5 px-3 space-y-6">
       <h1 className="text-center">{t("collection")}</h1>
       <div className="flex justify-center lg:gap-5 flex-wrap gap-5">
         {data?.map((el: any, index: number) => {

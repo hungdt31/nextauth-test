@@ -19,6 +19,9 @@ export function UserDropdownMenu({ children }: { children: React.ReactNode }) {
   const signIn = () => {
     router.push('/auth/login')
   }
+  const gotoProfile = () => {
+    router.push('/profile')
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -34,7 +37,7 @@ export function UserDropdownMenu({ children }: { children: React.ReactNode }) {
               <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={() => gotoProfile()}>
             Profile
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
