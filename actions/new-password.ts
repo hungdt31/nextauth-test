@@ -19,6 +19,6 @@ export const ConfirmResetPassword = async (token : string) => {
     }
   }
   return {
-    success: "Xác nhận hoàn tất"
+    success: "Confirm successfully"
   }
 }

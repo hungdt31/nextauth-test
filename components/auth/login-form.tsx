@@ -20,6 +20,7 @@ import { useEffect, useState, useTransition } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { Eye, EyeOff } from 'lucide-react'
 
 export default function LoginForm() {
   const ErrorParam = useSearchParams().get('error') as string
@@ -79,28 +80,46 @@ export default function LoginForm() {
             <FormField
               control={form.control}
               name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <div>
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        type="password"
-                        placeholder="********"
-                      />
-                      <Link
-                        className='font-light text-[12px]'
-                        href={"/auth/forgot-password"}
+              render={({ field }) => {
+                const [type, setType] = useState<string>('password')
+                return (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-3">
+                      Password{' '}
+                      <span
+                        onClick={() => {
+                          type == 'password'
+                            ? setType('text')
+                            : setType('password')
+                        }}
                       >
-                        {t('forgot_password')}
-                      </Link>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+                        {type == 'password' ? (
+                          <EyeOff size={14} />
+                        ) : (
+                          <Eye size={14} />
+                        )}
+                      </span>
+                    </FormLabel>
+                    <FormControl>
+                      <div>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          type={type}
+                          placeholder="********"
+                        />
+                        <Link
+                          className="font-light text-[12px]"
+                          href={'/auth/forgot-password'}
+                        >
+                          {t('forgot_password')}
+                        </Link>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
           </div>
           <FormNotice message={success} type="success" />

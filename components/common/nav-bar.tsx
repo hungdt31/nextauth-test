@@ -4,7 +4,7 @@ import { UserInfo } from './user'
 import { UserDropdownMenu } from './dropdown'
 export default function NavBar() {
   return (
-    <div className="flex gap-5 items-center p-3 w-ful justify-around mt-3">
+    <div className="flex gap-5 items-center p-3 w-ful justify-around mt-3" id="nav-bar">
       <div className="flex gap-5 items-center">
         <ModeToggle />
         <LocaleSwitcher />

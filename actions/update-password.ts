@@ -35,8 +35,11 @@ export const UpdatePassword = async ({
         id: existingResetPasswordToken.id,
       },
     })
+    return {
+      success: 'Update password successfully',
+    }
   }
   return {
-    success: 'Update password successfully',
+    error: "Token is not found!"
   }
 }

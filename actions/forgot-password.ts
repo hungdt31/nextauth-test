@@ -9,7 +9,7 @@ export const forgotPassword = async (values : z.infer<typeof ForgotPasswordSchem
   const validateFields = ForgotPasswordSchema.safeParse(values);
   if (!validateFields.success) {
     return {
-      error: "Invalid email"
+      error: "Invalid email!"
     }
   }
   const { email } = validateFields.data

@@ -8,7 +8,16 @@
     "des_community": "Chia sẻ, gắn kết qua các nền tảng",
     "dev": "Nhà phát triển",
     "des_dev_1": "Đối với các nhà phát triển, Unsplash không chỉ là nguồn hình ảnh tuyệt đẹp",
-    "des_dev_2": "mà còn là một công cụ mạnh mẽ có thể được tích hợp liền mạch vào các ứng dụng và trang web."
+    "des_dev_2": "mà còn là một công cụ mạnh mẽ có thể được tích hợp liền mạch vào các ứng dụng và trang web.",
+    "profile": {
+      "header":"Thông tin cá nhân",
+      "avatar": "Ảnh đại diện",
+      "name": "Tên",
+      "email": "Email",
+      "role": "Role",
+      "provider": "Nhà cung cấp"
+    },
+    "footer": "THAM GIA TẠI"
   },
   "/auth/login": {
     "headerLabel":"Chào mừng trở lại",

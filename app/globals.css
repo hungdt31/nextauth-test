@@ -475,3 +475,13 @@
   overflow: hidden !important;
   text-overflow: ellipsis;
 }
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  @apply bg-outline;
+  transform-origin: 0%;
+  @apply z-50;
+}

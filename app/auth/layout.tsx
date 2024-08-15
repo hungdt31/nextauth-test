@@ -6,7 +6,7 @@ export default function AuthLayout({
 }) {
   return (
     <div>
-      <AuthNavBar/>
+      <AuthNavBar showToggleLanguage={true}/>
       <div className="h-full flex items-center justify-center">
         {children}
       </div>

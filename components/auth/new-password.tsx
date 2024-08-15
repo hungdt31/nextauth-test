@@ -2,6 +2,7 @@
 import { CardWrapper } from '@/components/auth/card-wrapper'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
+import { Eye, EyeOff } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { NewPasswordSchema } from '@/schemas'
 import {
@@ -34,7 +35,7 @@ export default function NewPassword() {
     resolver: zodResolver(NewPasswordSchema),
     defaultValues: {
       password: '',
-    }
+    },
   })
   useEffect(() => {
     ConfirmResetPassword(token).then((data) => {
@@ -50,13 +51,15 @@ export default function NewPassword() {
   const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
     setError('')
     setSuccess('')
+    setNotice('')
     startTransition(() => {
       const { password } = values
       UpdatePassword({
         token,
-        new_password: password
+        new_password: password,
       }).then((data) => {
         setNotice(data.success)
+        setError(data.error)
       })
     })
   }
@@ -64,9 +67,9 @@ export default function NewPassword() {
     <div>
       <CardWrapper
         backButtonHref="/auth/login"
-        backButtonLabel={t("backButtonLabel")}
+        backButtonLabel={t('backButtonLabel')}
         showSocial={false}
-        headerLabel={t("headerLabel")}
+        headerLabel={t('headerLabel')}
       >
         {!isHidden && (
           <Form {...form}>
@@ -75,22 +78,40 @@ export default function NewPassword() {
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <div>
-                          <Input
-                            {...field}
-                            disabled={isPending}
-                            type="password"
-                            placeholder="********"
-                          />
-                        </div>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field }) => {
+                    const [type, setType] = useState<string>('password')
+                    return (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-3">
+                          Password{' '}
+                          <span
+                            onClick={() => {
+                              type == 'password'
+                                ? setType('text')
+                                : setType('password')
+                            }}
+                          >
+                            {type == 'password' ? (
+                              <EyeOff size={14} />
+                            ) : (
+                              <Eye size={14} />
+                            )}
+                          </span>
+                        </FormLabel>
+                        <FormControl>
+                          <div>
+                            <Input
+                              {...field}
+                              disabled={isPending}
+                              type={type}
+                              placeholder="********"
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )
+                  }}
                 />
               </div>
               <Button disabled={isPending} type="submit" className="w-full">
@@ -99,7 +120,7 @@ export default function NewPassword() {
             </form>
           </Form>
         )}
-        <div>
+        <div className='mt-5'>
           <FormNotice type="error" message={error} />
         </div>
         {success && (
@@ -107,11 +128,11 @@ export default function NewPassword() {
             <div className="absolute top-0 left-0 w-full h-full bg-gray-300 bg-opacity-50 flex justify-center items-center">
               <SpinnerLoading />
             </div>
-            <FormNotice type="success" message={success}/>
+            <FormNotice type="success" message={success} />
           </div>
         )}
-        <div className='mt-5'>
-          <FormNotice type="success" message={notice}/>
+        <div className="mt-5">
+          <FormNotice type="success" message={notice} />
         </div>
       </CardWrapper>
     </div>
